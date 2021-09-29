@@ -1,0 +1,52 @@
+{
+  "name": "clover-launcher",
+  "productName": "clover-launcher",
+  "version": "0.0.1",
+  "description": "Yet another Minecraft launcher on Electron",
+  "main": "dist/main/index.js",
+  "private": true,
+  "scripts": {
+    "dev": "npm run build && npm run start",
+    "build": "concurrently -n main,preload,renderer -c blue.bold,yellow.bold,magenta.bold \"npm:build:main\" \"npm:build:preload\" \"npm:build:renderer\"",
+    "build_rollup": "concurrently -n main,preload,renderer -c blue.bold,yellow.bold,magenta.bold \"npm:build_rollup:main\" \"npm:build_rollup:preload\" \"npm:build:renderer\"",
+    "build:main": "esbuild src/main/index.ts --platform=node --bundle --outdir=dist/main --sourcemap --external:electron",
+    "build_rollup:main": "rollup src/main/index.ts --file dist/main/index.js --format cjs",
+    "build:preload": "esbuild src/preload/index.ts --platform=node --bundle --outdir=dist/preload --sourcemap",
+    "build_rollup:preload": "rollup src/preload/index.ts --file dist/preload/index.js --format cjs",
+    "build:renderer": "vite build",
+    "start": "electron .",
+    "clean": "rimraf dist"
+  },
+  "keywords": [
+    "minecraft",
+    "launcher",
+    "electron"
+  ],
+  "devDependencies": {
+    "@types/node": "^16.10.1",
+    "@types/react": "^17.0.24",
+    "@types/react-dom": "^17.0.9",
+    "@vitejs/plugin-react": "^1.0.1",
+    "concurrently": "^6.2.1",
+    "electron": "^13.4.0",
+    "esbuild": "^0.13.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.57.0",
+    "typescript": "^4.4.3",
+    "vite": "^2.6.1"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoCat/Clover-Launcher.git"
+  },
+  "author": "JoCat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JoCat/Clover-Launcher/issues"
+  },
+  "homepage": "https://github.com/JoCat/Clover-Launcher#readme"
+}
